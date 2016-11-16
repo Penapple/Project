@@ -6,16 +6,19 @@ df = pd.read_csv('shot_logs.csv')
 #cavs = df[df['MATCHUP'].str.contains("CLE @" or "vs. CLE") == True]  not work well
 love = df[df['player_name'] == 'kevin love']
 kyrie = df[df['player_name'] == 'kyrie irving']
+lebron = df[df['player_name'] == 'lebron james']
 print(love['SHOT_DIST'].count())
 print(kyrie['SHOT_DIST'].count())
 
+sns.violinplot(lebron['SHOT_DIST'])
+plt.title('lebron')
+plt.show()
 sns.violinplot(love['SHOT_DIST'])
 plt.title('love')
 plt.show()
 sns.violinplot(kyrie['SHOT_DIST'])
 plt.title('kyrie')
 plt.show()
-
 
 
 
