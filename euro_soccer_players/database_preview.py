@@ -13,7 +13,4 @@ with engine.connect() as con:
 #print(df.columns.values)
 #print(df.head())
 
-df['date'] = pd.to_datetime(df['date'])
-print(type(df[['date']]))
-
 
