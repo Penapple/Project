@@ -15,7 +15,33 @@ if api_call.get('ok'):
             im_channel = im.get("id")
             slack_client.api_call("chat.postMessage", channel=im_channel,
                                        text="Hi Buddy", as_user=True)
-                 
+#above plus
+BOT_NAME = 'berner_for_test'
+
+slack_client = SlackClient(SLACK_TOKEN)
+
+
+if __name__ == '__main__':
+    #chan = "C6VRAB7FV"
+    greeting = "Hello!\nNice to meet you."
+    api_call = slack_client.api_call("im.list")
+    attachment = json.dumps([
+    {
+            'text': 'Pageview',
+            "fallback": "New ticket from Andrea Lee - Ticket #1943: Can't reset my password - https://groove.hq/path/to/ticket/1943",
+                    "pretext": "New ticket from Andrea Lee",
+                    "title": "Ticket #1943: Can't reset my password",
+                    "title_link": "https://groove.hq/path/to/ticket/1943",
+                    "text": "Help! I tried to reset my password but nothing happened!",
+                    "color": "#7CD197"
+                }
+])
+
+    if api_call.get('ok'):
+        for im in api_call.get("ims"):
+            im_channel = im.get("id")
+            slack_client.api_call("chat.postMessage", channel=im_channel,
+                                  text="TEST", attachments=attachment, as_user=True)
 
 # safe url flask 
 def generate_url():
