@@ -1,0 +1,74 @@
+# send msg to user directly 
+from slackclient import SlackClient
+
+SLACK_TOKEN = "xoxb-bottoken" # or a TEST token. Get one from https://api.slack.com/docs/oauth-test-tokens
+
+slack_client = SlackClient(SLACK_TOKEN)
+api_call = slack_client.api_call("im.list")
+
+# You should either know the user_slack_id to send a direct msg to the user
+user_slack_id = "USLACKBOT"
+
+if api_call.get('ok'):
+    for im in api_call.get("ims"):
+        if im.get("user") == user_slack_id:
+            im_channel = im.get("id")
+            slack_client.api_call("chat.postMessage", channel=im_channel,
+                                       text="Hi Buddy", as_user=True)
+                 
+
+# safe url flask 
+def generate_url():
+    global secret
+    secret = urandom(2)  # such as generate from os.urandom(length) ***
+    current_time = str(int(time.time()))
+    token = hmac.new(secret, current_time.encode('utf-8'), hashlib.sha256).hexdigest()
+    return "http://94d013b9.ngrok.io/pageview?time=%(current_time)s&token=%(token)s" % {   #change local host each time on ngrok and slack api
+        "current_time": current_time,
+        "token": token
+    }
+
+def verify(time_in_link, token_in_link):
+    time_limit = 12  # sec
+    if (time.time() - int(time_in_link)) > time_limit:  #timeout
+        print("figure expired")
+        return False
+    if hmac.new(secret, time_in_link.encode('utf-8'), hashlib.sha256).hexdigest() == token_in_link:  # Check the token is available or not
+        print("token is correct")
+        return True
+    else:
+        print("incorrect token")
+        return False
+
+
+@application.route("/slack", methods=['POST'])  #json img done
+def parse_request():
+    if request.form.get('user_name') in ['kyang', 'test'] and request.form.get('token') == app_token and request.form.get('text') == 'aws':
+        link = generate_url()
+        return jsonify({
+        'text': 'Pageview',
+        'attachments': [
+            {
+                'fallback': 'Required plain-text summary of the attachment.',
+                'color': '#36a64f',
+                'title': 'Pageview AWS Demo',
+                "color": "#36a64f",
+                'title_link': "https://www.kryteriononline.com/",
+                'image_url': link,
+                "ts": int(time.time())
+            }
+        ]
+    })
+    else:
+        return Response("Not a valid argument", status=405)
+
+@application.route("/pageview", methods=['GET'])
+def png():
+    if verify(request.args.get('time'), request.args.get('token')):
+        return pageview()
+    else:
+        return Response("Sorry, this figure is expired and only available on Slack.\n  -Kyle(kyang@kryteriononline.com)", status=405)
+
+
+if __name__ == "__main__":
+    application.run(debug=False)
