@@ -1,47 +1,53 @@
 # send msg to user directly 
 from slackclient import SlackClient
+import json
+import datetime
 
-SLACK_TOKEN = "xoxb-bottoken" # or a TEST token. Get one from https://api.slack.com/docs/oauth-test-tokens
+BOT_TOKEN = 'xoxb'
 
-slack_client = SlackClient(SLACK_TOKEN)
-api_call = slack_client.api_call("im.list")
+slack_client = SlackClient(BOT_TOKEN)
+yesterday = datetime.datetime.today() - datetime.timedelta(days=1)
 
-# You should either know the user_slack_id to send a direct msg to the user
-user_slack_id = "USLACKBOT"
+rt1 = ""
+for i in range(8):
+    rt1 += str(i) + '--' + str(i) + '\n'
 
-if api_call.get('ok'):
-    for im in api_call.get("ims"):
-        if im.get("user") == user_slack_id:
-            im_channel = im.get("id")
-            slack_client.api_call("chat.postMessage", channel=im_channel,
-                                       text="Hi Buddy", as_user=True)
-#above plus
-BOT_NAME = 'berner_for_test'
-
-slack_client = SlackClient(SLACK_TOKEN)
+rt2 = ""
+for i in range(5):
+    rt2 += str(i) + '--' + str(i) + '\n'
 
 
 if __name__ == '__main__':
     #chan = "C6VRAB7FV"
-    greeting = "Hello!\nNice to meet you."
     api_call = slack_client.api_call("im.list")
     attachment = json.dumps([
     {
-            'text': 'Pageview',
-            "fallback": "New ticket from Andrea Lee - Ticket #1943: Can't reset my password - https://groove.hq/path/to/ticket/1943",
-                    "pretext": "New ticket from Andrea Lee",
-                    "title": "Ticket #1943: Can't reset my password",
-                    "title_link": "https://groove.hq/path/to/ticket/1943",
-                    "text": "Help! I tried to reset my password but nothing happened!",
-                    "color": "#7CD197"
-                }
+    "fallback": "New ticket from Andrea Lee - Ticket #1943: Can't reset my password - https://groove.hq/path/to/ticket/1943",
+    "pretext": "gy",
+    "author_name": "G1",
+    "author_link": "http://flickr.com/bobby/",
+    "author_icon": "http://americanfootballfilms.com/wp-content/uploads/2012/11/nfl-logo.jpg",
+    "text": rt1,
+    "color": "#7CD197"
+    },
+    {
+     "fallback": "New ticket from Andrea Lee - Ticket #1943: Can't reset my password - https://groove.hq/path/to/ticket/1943",
+     "title": ":baseball: G2",
+     "title_link": "https://groove.hq/path/to/ticket/1943",
+     "text": rt2,
+     "color": "#0594CC",
+     },
+    {
+        "text": "_type_ `m` _check more_ ",
+        "mrkdwn_in": ["text"]
+    }
 ])
 
     if api_call.get('ok'):
         for im in api_call.get("ims"):
             im_channel = im.get("id")
             slack_client.api_call("chat.postMessage", channel=im_channel,
-                                  text="TEST", attachments=attachment, as_user=True)
+                                  text=yesterday.date(), attachments=attachment, as_user=True)
 
 # safe url flask 
 def generate_url():
