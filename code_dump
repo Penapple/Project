@@ -1,3 +1,32 @@
+#event response
+from slackeventsapi import SlackEventAdapter
+from slackclient import SlackClient
+
+SLACK_VERIFICATION_TOKEN =
+
+slack_events_adapter = SlackEventAdapter(SLACK_VERIFICATION_TOKEN, endpoint="/slack/events")
+
+# Create a SlackClient for your bot to use for Web API requests
+SLACK_BOT_TOKEN =
+
+# Example responder to greetings
+@slack_events_adapter.on("message")
+def handle_message(event_data):
+    message = event_data["event"]
+    ts = message['ts']
+    tk = event_data['api_app_id']
+    # If the incoming message contains "hi", then respond with a "Hello" message
+    if message.get("subtype") is None and ("hi" in message.get('text') or "HI" in message.get('text')):
+        channel = message["channel"]
+        text = "Hello <@%s>! :tada:" % message["user"]
+        # for record in postman_tokens:
+            # if record['token'] == tk:    bot_token = record['bot_token']
+        SlackClient(SLACK_BOT_TOKEN).api_call("reactions.add", channel=channel, name="football", timestamp=ts)
+        SlackClient(SLACK_BOT_TOKEN).api_call("chat.postMessage", channel=channel, text=text)
+
+
+slack_events_adapter.start(port=5000)
+
 # send msg to user directly 
 from slackclient import SlackClient
 import json
