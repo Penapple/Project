@@ -133,3 +133,14 @@ def png():
 
 if __name__ == "__main__":
     application.run(debug=False)
+
+
+##############
+Could you please add a help command to your bot that provides an some information about how to use your app e.g commands, syntax etc. Thanks!
+
+On retesting the bot it's still saying "Sorry this function is not working now but robot said it will come very soon." The App Directory is for feature complete apps that are ready for the general public. If your app is still missing key functionality then I would suggest holding off on resubmitting until this functionality has been added. Thanks!
+
+Your landing page still doesn't really include any information about what your app does. Could you please include some specifics about using your app in Slack (screenshots can be very helpful here!). Thanks!
+
+After the OAuth flow completes you still redirect users to a page that only contains the words "Complete page". This is a bit confusing. Could you please redirect users to a page on your website that tells them the outcome of the installation as well as gives them some next steps to get started with your app? Thanks!
+
