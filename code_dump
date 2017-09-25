@@ -1,3 +1,4 @@
+d3 dc leaflet crossfilter jquery underscore
 #event response
 from slackeventsapi import SlackEventAdapter
 from slackclient import SlackClient
