@@ -219,4 +219,34 @@ def schedule(df):
         return text
 
 print(schedule(sb))
-
+2017-09-26T20:57:13.271655+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/flask/app.py", line 1612, in full_dispatch_request
+2017-09-26T20:57:13.271655+00:00 app[web.1]:     rv = self.dispatch_request()
+2017-09-26T20:57:13.271656+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/flask/app.py", line 1598, in dispatch_request
+2017-09-26T20:57:13.271657+00:00 app[web.1]:     return self.view_functions[rule.endpoint](**req.view_args)
+2017-09-26T20:57:13.271658+00:00 app[web.1]:   File "/app/app.py", line 183, in handle_message
+2017-09-26T20:57:13.271659+00:00 app[web.1]:     attachment = nfl_latest()
+2017-09-26T20:57:13.271660+00:00 app[web.1]:   File "/app/latest_games/nfl.py", line 19, in nfl_latest
+2017-09-26T20:57:13.271660+00:00 app[web.1]:     games = nflgame.games(2017, week=week)
+2017-09-26T20:57:13.271661+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/nflgame/__init__.py", line 229, in games
+2017-09-26T20:57:13.271661+00:00 app[web.1]:     return list(games_gen(year, week, home, away, kind, started))
+2017-09-26T20:57:13.271662+00:00 app[web.1]: TypeError: 'NoneType' object is not iterable
+2017-09-26T21:02:13.252698+00:00 heroku[router]: at=info method=POST path="/slack/events" host=scoreboard-news.herokuapp.com request_id=afed22a5-d143-435e-bf9d-6996902ffcb2 fwd="34.207.213.117" dyno=web.1 connect=1ms service=169ms status=500 bytes=456 protocol=https
+2017-09-26T21:02:13.243768+00:00 app[web.1]: [2017-09-26 16:02:13,243] ERROR in app: Exception on /slack/events [POST]
+2017-09-26T21:02:13.243792+00:00 app[web.1]: Traceback (most recent call last):
+2017-09-26T21:02:13.243797+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/flask/app.py", line 1982, in wsgi_app
+2017-09-26T21:02:13.243798+00:00 app[web.1]:     response = self.full_dispatch_request()
+2017-09-26T21:02:13.243799+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/flask/app.py", line 1614, in full_dispatch_request
+2017-09-26T21:02:13.243800+00:00 app[web.1]:     rv = self.handle_user_exception(e)
+2017-09-26T21:02:13.243801+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/flask/app.py", line 1517, in handle_user_exception
+2017-09-26T21:02:13.243801+00:00 app[web.1]:     reraise(exc_type, exc_value, tb)
+2017-09-26T21:02:13.243802+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/flask/app.py", line 1612, in full_dispatch_request
+2017-09-26T21:02:13.243802+00:00 app[web.1]:     rv = self.dispatch_request()
+2017-09-26T21:02:13.243803+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/flask/app.py", line 1598, in dispatch_request
+2017-09-26T21:02:13.243804+00:00 app[web.1]:     return self.view_functions[rule.endpoint](**req.view_args)
+2017-09-26T21:02:13.243804+00:00 app[web.1]:   File "/app/app.py", line 183, in handle_message
+2017-09-26T21:02:13.243805+00:00 app[web.1]:     attachment = nfl_latest()
+2017-09-26T21:02:13.243806+00:00 app[web.1]:   File "/app/latest_games/nfl.py", line 19, in nfl_latest
+2017-09-26T21:02:13.243807+00:00 app[web.1]:     games = nflgame.games(2017, week=week)
+2017-09-26T21:02:13.243808+00:00 app[web.1]:   File "/app/.heroku/python/lib/python2.7/site-packages/nflgame/__init__.py", line 229, in games
+2017-09-26T21:02:13.243808+00:00 app[web.1]:     return list(games_gen(year, week, home, away, kind, started))
+2017-09-26T21:02:13.243809+00:00 app[web.1]: TypeError: 'NoneType' object is not iterable
